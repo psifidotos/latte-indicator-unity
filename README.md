@@ -1,4 +1,4 @@
-# Latte Unity
+# Latte Unity Indicator
 This is a Unity style indicator for [Latte Dock](https://phabricator.kde.org/source/latte-dock/repository/master/)
 
 <p align="center">
