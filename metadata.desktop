@@ -12,9 +12,12 @@ Comment[nl]=Unity stijlindicator van Latte
 Comment[uk]=Індикатор стилю Unity Латте
 Comment[x-test]=xxLatte Unity style indicatorxx
 
+Encoding=UTF-8
 Type=Service
 Icon=latte-dock
 X-Plasma-API=declarativeappletscript
+X-KDE-ServiceTypes=Latte/Indicator
+
 X-Latte-MainScript=ui/main.qml
 
 X-KDE-PluginInfo-Author=Michail Vourlakos
