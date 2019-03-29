@@ -39,7 +39,7 @@ Item{
             visible: indicator.isActive || (indicator.isWindow && indicator.hasShown)
 
             radius: indicator.currentIconSize / 12
-            color: indicator.backgroundColor
+            color: indicator.iconBackgroundColor
             clip: true
         }
 
@@ -58,7 +58,7 @@ Item{
                             return "#aafcfcfc";
                         }
 
-                        return indicator.glowColor;
+                        return indicator.iconGlowColor;
                     }
                 }
                 GradientStop { position: 0.6; color: "transparent" }
