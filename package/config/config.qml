@@ -34,7 +34,7 @@ ColumnLayout {
     Layout.fillWidth: true
 
     LatteComponents.SubHeader {
-        text: i18nc("indicators style","Style")
+        text: i18nc("indicators shapes style","Shapes Style")
     }
 
     RowLayout {
@@ -55,25 +55,37 @@ ColumnLayout {
         PlasmaComponents.Button {
             Layout.fillWidth: true
 
-            text: i18nc("triangle indicators","Triangles")
+            text: i18nc("triangle indicators","Triangle")
             checked: parent.style === style
             checkable: true
             exclusiveGroup: styleGroup
             tooltip: i18n("Show triangles for item states")
 
-            readonly property int style: 0 /*Triangles*/
+            readonly property int style: 0 /*Triangle*/
         }
 
         PlasmaComponents.Button {
             Layout.fillWidth: true
 
-            text: i18nc("dot indicators", "Dots")
+            text: i18nc("dot indicators", "Dot")
             checked: parent.style === style
             checkable: true
             exclusiveGroup: styleGroup
             tooltip: i18n("Show dots for item states")
 
-            readonly property int style: 1 /*Dots*/
+            readonly property int style: 1 /*Dot*/
+        }
+
+        PlasmaComponents.Button {
+            Layout.fillWidth: true
+
+            text: i18nc("rectangle indicators", "Rectangle")
+            checked: parent.style === style
+            checkable: true
+            exclusiveGroup: styleGroup
+            tooltip: i18n("Show rectangles for item states")
+
+            readonly property int style: 2 /*Rectangle*/
         }
     }
 

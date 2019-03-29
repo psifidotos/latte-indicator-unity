@@ -7,8 +7,9 @@
   <group name="General">
     <entry name="style" type="Enum">
     <choices>
-         <choice name="Triangles"/>
-         <choice name="Dots"/>
+         <choice name="Triangle"/>
+         <choice name="Dot"/>
+         <choice name="Rectangle"/>
     </choices>
     <default>0</default>
     </entry>

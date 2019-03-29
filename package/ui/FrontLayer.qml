@@ -34,7 +34,7 @@ Item {
 
         Repeater {
             model: indicator.isTask && (indicator.isActive || indicator.hasActive) ? 1 : 0
-            delegate: triangleComponent
+            delegate: indicator.configuration.style === 0 /*Triangles*/ ? triangleComponent : circleComponent
         }
     }
 
@@ -50,7 +50,7 @@ Item {
 
         Repeater {
             model: Math.min(3, indicator.windowsCount)
-            delegate: triangleComponent
+            delegate: indicator.configuration.style === 0 /*Triangles*/ ? triangleComponent : circleComponent
         }
     }
 
@@ -137,6 +137,32 @@ Item {
                 ctx.stroke();
                 ctx.fill();
             }
+        }
+    }
+
+    //! Triangle Indicator Component
+    Component {
+        id: circleComponent
+        Rectangle {
+            width: indicator.currentIconSize / 8
+            height: width
+
+            property bool fillCircle: {
+                if (!parent.alwaysActive && indicator.windowsMinimizedCount!==0
+                        && ((index < maxDrawnMinimizedWindows)
+                            || (indicator.windowsCount === indicator.windowsMinimizedCount))) {
+                    return false;
+                }
+
+                return true;
+            }
+
+            border.width: 1
+            border.color: root.activeColor
+            radius: indicator.configuration.style === 1 /*Dot*/ ? width/2 : 2
+
+            color: fillCircle ? root.activeColor : root.backgroundColor
+
         }
     }
 
