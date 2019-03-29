@@ -36,7 +36,9 @@ Item{
         Rectangle {
             id: unityRect
             anchors.fill: parent
-            visible: indicator.isActive || (indicator.isWindow && indicator.hasShown)
+            visible: indicator.isActive
+                     || (indicator.isWindow && indicator.hasShown)
+                     || (indicator.isMinimized && indicator.configuration.colorsForMinimized)
 
             radius: indicator.currentIconSize / 12
             color: indicator.iconBackgroundColor
@@ -54,7 +56,7 @@ Item{
             gradient: Gradient {
                 GradientStop { position: 0.0;
                     color: {
-                        if (indicator.isMinimized) {
+                        if (indicator.isMinimized && !indicator.configuration.colorsForMinimized) {
                             return "#aafcfcfc";
                         }
 
