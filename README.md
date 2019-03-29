@@ -17,5 +17,7 @@ This is a Unity style indicator for [Latte Dock](https://phabricator.kde.org/sou
 
 # Install
 
-Effects -> Indicators -> Style -> Get New Indicators...
+From Latte UI: **Effects -> Indicators -> Style -> Get New Indicators...**
+
+From command line: ``kpackagetool5 -i . -t Latte/Indicator``
 
