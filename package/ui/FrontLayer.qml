@@ -157,12 +157,19 @@ Item {
                 return true;
             }
 
-            border.width: 1
-            border.color: root.activeColor
             radius: indicator.configuration.style === 1 /*Dot*/ ? width/2 : 2
+            border.width: 1
+            border.color: root.backgroundColor
+            color: "transparent"
 
-            color: fillCircle ? root.activeColor : root.backgroundColor
-
+            Rectangle{
+                anchors.fill: parent
+                anchors.margins: parent.border.width
+                border.width: 1
+                border.color: root.activeColor
+                radius: parent.radius
+                color: fillCircle ? root.activeColor : root.backgroundColor
+            }
         }
     }
 
