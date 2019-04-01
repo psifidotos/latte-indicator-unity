@@ -137,6 +137,7 @@ Item{
             source: glowGradient
             maskSource: gradientMask
             visible: unityRect.visible || borderRectangle.visible
+            opacity: indicator.configuration.glowOpacity
         }
 
         Rectangle {

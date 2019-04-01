@@ -24,6 +24,7 @@ import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
 
 Item {
+    id: frontLayer
     anchors.fill: parent
 
     Row {
@@ -54,6 +55,19 @@ Item {
         }
     }
 
+    readonly property bool fillShapesBackground: {
+        if (indicator.configuration.fillShapesForMinimized) {
+            return true;
+        }
+
+        if (!parent.alwaysActive && indicator.windowsMinimizedCount!==0
+                && ((index < maxDrawnMinimizedWindows)
+                    || (indicator.windowsCount === indicator.windowsMinimizedCount))) {
+            return false;
+        }
+
+        return true;
+    }
 
     //! Triangle Indicator Component
     Component {
@@ -89,25 +103,18 @@ Item {
                 return 0;
             }
 
-            property bool fillTriangle: {
-                if (!parent.alwaysActive && indicator.windowsMinimizedCount!==0
-                        && ((index < maxDrawnMinimizedWindows)
-                            || (indicator.windowsCount === indicator.windowsMinimizedCount))) {
-                    return false;
-                }
-
-                return true;
-            }
-
             readonly property int lineWidth: 2
-
-            onFillTriangleChanged: requestPaint();
 
             Connections {
                 target: root
                 onActiveColorChanged: canvas.requestPaint();
                 onBackgroundColorChanged: canvas.requestPaint();
                 onOutlineColorChanged: canvas.requestPaint();
+            }
+
+            Connections {
+                target: frontLayer
+                onFillShapesBackgroundChanged: requestPaint();
             }
 
 
@@ -126,7 +133,7 @@ Item {
                 ctx.stroke();
 
                 ctx.strokeStyle = root.activeColor;
-                ctx.fillStyle = fillTriangle ? root.activeColor : root.backgroundColor;
+                ctx.fillStyle = fillShapesBackground ? root.activeColor : root.backgroundColor;
 
                 ctx.beginPath();
                 ctx.moveTo(lineWidth, canvas.height - lineWidth);
@@ -147,16 +154,6 @@ Item {
             width: indicator.currentIconSize / 8
             height: width
 
-            property bool fillCircle: {
-                if (!parent.alwaysActive && indicator.windowsMinimizedCount!==0
-                        && ((index < maxDrawnMinimizedWindows)
-                            || (indicator.windowsCount === indicator.windowsMinimizedCount))) {
-                    return false;
-                }
-
-                return true;
-            }
-
             radius: indicator.configuration.style === 1 /*Dot*/ ? width/2 : 2
             border.width: 1
             border.color: root.backgroundColor
@@ -168,7 +165,7 @@ Item {
                 border.width: 1
                 border.color: root.activeColor
                 radius: parent.radius
-                color: fillCircle ? root.activeColor : root.backgroundColor
+                color: fillShapesBackground ? root.activeColor : root.backgroundColor
             }
         }
     }

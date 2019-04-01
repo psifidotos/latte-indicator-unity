@@ -17,5 +17,16 @@
         <label>use icons colors to draw the background for minimized windows also</label>
         <default>false</default>
     </entry>
+    <entry name="shapesAtForeground" type="Bool">
+        <label>indicator Shapes will be located at the background by default, but the user can choose to place them in the foreground instead</label>
+        <default>false</default>
+    </entry>
+    <entry name="fillShapesForMinimized" type="Bool">
+        <label>indicator Shapes will fill their background for minimized windows</label>
+        <default>true</default>
+    </entry>
+    <entry name="glowOpacity" type="Double">
+        <default>1</default>
+    </entry>    
   </group>
 </kcfg>

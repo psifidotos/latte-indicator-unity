@@ -29,7 +29,7 @@ LatteComponents.IndicatorItem {
     id: root
 
     readonly property bool needsIconColors: true
-    readonly property bool providesFrontLayer: true
+    readonly property bool providesFrontLayer: indicator.configuration.shapesAtForeground
 
     readonly property int thickness: plasmoid.formFactor === PlasmaCore.Types.Vertical ? width : height
 
@@ -64,7 +64,8 @@ LatteComponents.IndicatorItem {
     Loader{
         id: frontLayer
         anchors.fill: parent
-        active: level.isForeground
+        active: (level.isForeground && indicator.configuration.shapesAtForeground)
+                || !indicator.configuration.shapesAtForeground
 
         sourceComponent:FrontLayer{}
     }

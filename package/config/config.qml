@@ -34,76 +34,161 @@ ColumnLayout {
     Layout.fillWidth: true
 
     LatteComponents.SubHeader {
-        text: i18nc("indicators shapes style","Shapes Style")
-    }
-
-    RowLayout {
-        Layout.fillWidth: true
-        spacing: 2
-
-        readonly property int style: indicator.configuration.style
-
-        ExclusiveGroup {
-            id: styleGroup
-            onCurrentChanged: {
-                if (current.checked) {
-                    indicator.configuration.style = current.style;
-                }
-            }
-        }
-
-        PlasmaComponents.Button {
-            Layout.fillWidth: true
-
-            text: i18nc("triangle indicators","Triangle")
-            checked: parent.style === style
-            checkable: true
-            exclusiveGroup: styleGroup
-            tooltip: i18n("Show triangles for item states")
-
-            readonly property int style: 0 /*Triangle*/
-        }
-
-        PlasmaComponents.Button {
-            Layout.fillWidth: true
-
-            text: i18nc("dot indicators", "Dot")
-            checked: parent.style === style
-            checkable: true
-            exclusiveGroup: styleGroup
-            tooltip: i18n("Show dots for item states")
-
-            readonly property int style: 1 /*Dot*/
-        }
-
-        PlasmaComponents.Button {
-            Layout.fillWidth: true
-
-            text: i18nc("rectangle indicators", "Rectangle")
-            checked: parent.style === style
-            checkable: true
-            exclusiveGroup: styleGroup
-            tooltip: i18n("Show rectangles for item states")
-
-            readonly property int style: 2 /*Rectangle*/
-        }
+        text: i18n("Background")
     }
 
     ColumnLayout {
         spacing: 0
-        visible: indicator.latteTasksArePresent
 
-        LatteComponents.SubHeader {
-            text: i18nc("indicator tasks options","Tasks")
+        RowLayout {
+            Layout.fillWidth: true
+            spacing: 2
+
+            PlasmaComponents.Label {
+                Layout.minimumWidth: implicitWidth
+                horizontalAlignment: Text.AlignLeft
+                Layout.rightMargin: units.smallSpacing
+                text: i18n("Glow Opacity")
+            }
+
+            LatteComponents.Slider {
+                id: glowOpacitySlider
+                Layout.fillWidth: true
+
+                leftPadding: 0
+                value: indicator.configuration.glowOpacity * 100
+                from: 0
+                to: 100
+                stepSize: 5
+                wheelEnabled: false
+
+                function updateGlowOpacity() {
+                    if (!pressed) {
+                        indicator.configuration.glowOpacity = value/100;
+                    }
+                }
+
+                onPressedChanged: {
+                    updateGlowOpacity();
+                }
+
+                Component.onCompleted: {
+                    valueChanged.connect(updateGlowOpacity);
+                }
+
+                Component.onDestruction: {
+                    valueChanged.disconnect(updateGlowOpacity);
+                }
+            }
+
+            PlasmaComponents.Label {
+                text: i18nc("number in percentage, e.g. 85 %","%0 %").arg(glowOpacitySlider.value)
+                horizontalAlignment: Text.AlignRight
+                Layout.minimumWidth: theme.mSize(theme.defaultFont).width * 4
+                Layout.maximumWidth: theme.mSize(theme.defaultFont).width * 4
+            }
+        }
+    }
+
+    LatteComponents.SubHeader {
+        text: i18nc("indicators shapes style","Shapes Style")
+    }
+
+    ColumnLayout {
+        spacing: 0
+
+        RowLayout {
+            Layout.fillWidth: true
+            spacing: 2
+
+            readonly property int style: indicator.configuration.style
+
+            ExclusiveGroup {
+                id: styleGroup
+                onCurrentChanged: {
+                    if (current.checked) {
+                        indicator.configuration.style = current.style;
+                    }
+                }
+            }
+
+            PlasmaComponents.Button {
+                Layout.fillWidth: true
+
+                text: i18nc("triangle indicators","Triangle")
+                checked: parent.style === style
+                checkable: true
+                exclusiveGroup: styleGroup
+                tooltip: i18n("Show triangles for item states")
+
+                readonly property int style: 0 /*Triangle*/
+            }
+
+            PlasmaComponents.Button {
+                Layout.fillWidth: true
+
+                text: i18nc("dot indicators", "Dot")
+                checked: parent.style === style
+                checkable: true
+                exclusiveGroup: styleGroup
+                tooltip: i18n("Show dots for item states")
+
+                readonly property int style: 1 /*Dot*/
+            }
+
+            PlasmaComponents.Button {
+                Layout.fillWidth: true
+
+                text: i18nc("rectangle indicators", "Rectangle")
+                checked: parent.style === style
+                checkable: true
+                exclusiveGroup: styleGroup
+                tooltip: i18n("Show rectangles for item states")
+
+                readonly property int style: 2 /*Rectangle*/
+            }
         }
 
         PlasmaComponents.CheckBox {
-            id: minimizedColors
-            text: i18n("Draw colored background for minimized windows")
-            checked: indicator.configuration.colorsForMinimized
+            id: shapesPlacement
+            Layout.topMargin: units.smallSpacing * 1.5
+            text: i18n("Place Shapes at foreground above item icon")
+            checked: indicator.configuration.shapesAtForeground
 
             onClicked: {
-                indicator.configuration.colorsForMinimized = !indicator.configuration.colorsForMinimized;
+                indicator.configuration.shapesAtForeground = !indicator.configuration.shapesAtForeground;
+            }
+        }
+    }
+
+    LatteComponents.SubHeader {
+        text: i18nc("indicator tasks options","Tasks")
+        visible: indicator.latteTasksArePresent
+    }
+
+    Column {
+        spacing: 0
+        visible: indicator.latteTasksArePresent
+
+        LatteComponents.CheckBoxesColumn {
+            PlasmaComponents.CheckBox {
+                id: minimizedColors
+                text: i18n("Draw colored background for minimized windows")
+                checked: indicator.configuration.colorsForMinimized
+
+                onClicked: {
+                    indicator.configuration.colorsForMinimized = !indicator.configuration.colorsForMinimized;
+                }
+            }
+
+            PlasmaComponents.CheckBox {
+                id: fillShapes
+                text: i18n("Fill Shapes background for minimized windows")
+                checked: indicator.configuration.fillShapesForMinimized
+
+                onClicked: {
+                    indicator.configuration.fillShapesForMinimized = !indicator.configuration.fillShapesForMinimized;
+                }
             }
         }
     }
