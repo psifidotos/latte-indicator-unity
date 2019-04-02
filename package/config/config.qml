@@ -48,7 +48,7 @@ ColumnLayout {
                 Layout.minimumWidth: implicitWidth
                 horizontalAlignment: Text.AlignLeft
                 Layout.rightMargin: units.smallSpacing
-                text: i18n("Glow Opacity")
+                text: i18n("Glow")
             }
 
             LatteComponents.Slider {
