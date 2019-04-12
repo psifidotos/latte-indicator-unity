@@ -146,7 +146,7 @@ Item{
             visible: (indicator.isTask && indicator.isWindow) || (indicator.isApplet && indicator.isActive)
             color: "transparent"
             border.width: 1
-            border.color: "#303030"
+            border.color: "#25303030"
             radius: unityRect.radius
             clip: true
 
