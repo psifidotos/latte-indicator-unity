@@ -69,7 +69,7 @@ Item{
             states: [
                 State {
                     name: "top"
-                    when: !indicator.shared.reversed
+                    when: !indicator.configuration.glowReversed
 
                     AnchorChanges {
                         target: glowGradient
@@ -78,7 +78,7 @@ Item{
                 },
                 State {
                     name: "bottom"
-                    when: indicator.shared.reversed
+                    when: indicator.configuration.glowReversed
 
                     AnchorChanges {
                         target: glowGradient
@@ -102,7 +102,7 @@ Item{
                 states: [
                     State {
                         name: "top"
-                        when: !indicator.shared.reversed
+                        when: !indicator.configuration.glowReversed
 
                         AnchorChanges {
                             target: glowMaskRect
@@ -115,7 +115,7 @@ Item{
                     },
                     State {
                         name: "bottom"
-                        when: indicator.shared.reversed
+                        when: indicator.configuration.glowReversed
 
                         AnchorChanges {
                             target: glowMaskRect

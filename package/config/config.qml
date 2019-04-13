@@ -103,6 +103,9 @@ ColumnLayout {
 
             readonly property int style: indicator.configuration.style
 
+            readonly property int buttonsCount: 3
+            readonly property int buttonSize: (dialog.optionsWidth - (spacing * buttonsCount-1)) / buttonsCount
+
             ExclusiveGroup {
                 id: styleGroup
                 onCurrentChanged: {
@@ -113,7 +116,8 @@ ColumnLayout {
             }
 
             PlasmaComponents.Button {
-                Layout.fillWidth: true
+                Layout.minimumWidth: parent.buttonSize
+                Layout.maximumWidth: Layout.minimumWidth
 
                 text: i18nc("triangle indicators","Triangle")
                 checked: parent.style === style
@@ -125,7 +129,8 @@ ColumnLayout {
             }
 
             PlasmaComponents.Button {
-                Layout.fillWidth: true
+                Layout.minimumWidth: parent.buttonSize
+                Layout.maximumWidth: Layout.minimumWidth
 
                 text: i18nc("dot indicators", "Dot")
                 checked: parent.style === style
@@ -137,7 +142,8 @@ ColumnLayout {
             }
 
             PlasmaComponents.Button {
-                Layout.fillWidth: true
+                Layout.minimumWidth: parent.buttonSize
+                Layout.maximumWidth: Layout.minimumWidth
 
                 text: i18nc("rectangle indicators", "Rectangle")
                 checked: parent.style === style
@@ -148,15 +154,33 @@ ColumnLayout {
                 readonly property int style: 2 /*Rectangle*/
             }
         }
+    }
 
-        PlasmaComponents.CheckBox {
+    LatteComponents.SubHeader {
+        text: i18n("Options")
+    }
+
+    LatteComponents.CheckBoxesColumn {
+        Layout.fillWidth: true
+
+        LatteComponents.CheckBox {
             id: shapesPlacement
-            Layout.topMargin: units.smallSpacing * 1.5
+            Layout.maximumWidth: dialog.optionsWidth
             text: i18n("Place Shapes at foreground above item icon")
             checked: indicator.configuration.shapesAtForeground
 
             onClicked: {
                 indicator.configuration.shapesAtForeground = !indicator.configuration.shapesAtForeground;
+            }
+        }
+
+        LatteComponents.CheckBox {
+            Layout.maximumWidth: dialog.optionsWidth
+            text: i18n("Reverse glow position")
+            checked: indicator.configuration.glowReversed
+
+            onClicked: {
+                indicator.configuration.glowReversed = !indicator.configuration.glowReversed;
             }
         }
     }
@@ -166,13 +190,13 @@ ColumnLayout {
         visible: indicator.latteTasksArePresent
     }
 
-    Column {
-        spacing: 0
+    LatteComponents.CheckBoxesColumn {
+        Layout.fillWidth: true
         visible: indicator.latteTasksArePresent
 
         LatteComponents.CheckBoxesColumn {
-            PlasmaComponents.CheckBox {
-                id: minimizedColors
+            LatteComponents.CheckBox {
+                Layout.maximumWidth: dialog.optionsWidth
                 text: i18n("Draw colored background for minimized windows")
                 checked: indicator.configuration.colorsForMinimized
 
@@ -181,8 +205,8 @@ ColumnLayout {
                 }
             }
 
-            PlasmaComponents.CheckBox {
-                id: fillShapes
+            LatteComponents.CheckBox {
+                Layout.maximumWidth: dialog.optionsWidth
                 text: i18n("Fill Shapes background for minimized windows")
                 checked: indicator.configuration.fillShapesForMinimized
 
