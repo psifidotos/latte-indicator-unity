@@ -156,7 +156,7 @@ Item {
 
             radius: indicator.configuration.style === 1 /*Dot*/ ? width/2 : 2
             border.width: 1
-            border.color: root.backgroundColor
+            border.color: root.outlineColor
             color: "transparent"
 
             Rectangle{

@@ -26,8 +26,8 @@ import org.kde.plasma.core 2.0 as PlasmaCore
 Item{
     Item{
         id: rectangleItem
-        width: indicator.isTask ? Math.min(parent.width, parent.height) : parent.width
-        height: indicator.isTask ? width : parent.height
+        width: indicator.isTask || indicator.isSquare ? Math.min(parent.width, parent.height) : parent.width
+        height: indicator.isTask || indicator.isSquare ? width : parent.height
         anchors.centerIn: parent
 
         property bool isActive: indicator.isActive || (indicator.isWindow && indicator.hasActive)

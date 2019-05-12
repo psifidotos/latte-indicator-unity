@@ -17,6 +17,9 @@
         <label>use icons colors to draw the background for minimized windows also</label>
         <default>false</default>
     </entry>
+    <entry name="drawShapesBorder" type="Bool">
+        <default>false</default>
+    </entry>
     <entry name="shapesAtForeground" type="Bool">
         <label>indicator Shapes will be located at the background by default, but the user can choose to place them in the foreground instead</label>
         <default>false</default>

@@ -42,7 +42,13 @@ LatteComponents.IndicatorItem {
 
     readonly property real backColorBrightness: colorBrightness(indicator.palette.backgroundColor)
     readonly property color activeColor: indicator.palette.buttonFocusColor
-    readonly property color outlineColor: backColorBrightness < 127 ? indicator.palette.backgroundColor : indicator.palette.textColor
+    readonly property color outlineColor: {
+        if (!indicator.configuration.drawShapesBorder) {
+            return "transparent"
+        }
+
+        return backColorBrightness < 127 ? indicator.palette.backgroundColor : indicator.palette.textColor;
+    }
     readonly property color backgroundColor: indicator.palette.backgroundColor
 
     function colorBrightness(color) {

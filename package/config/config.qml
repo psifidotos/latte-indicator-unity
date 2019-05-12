@@ -164,13 +164,13 @@ ColumnLayout {
         Layout.fillWidth: true
 
         LatteComponents.CheckBox {
-            id: shapesPlacement
+            id: shapesBorder
             Layout.maximumWidth: dialog.optionsWidth
-            text: i18n("Place Shapes at foreground above item icon")
-            checked: indicator.configuration.shapesAtForeground
+            text: i18n("Draw Shapes border")
+            checked: indicator.configuration.drawShapesBorder
 
             onClicked: {
-                indicator.configuration.shapesAtForeground = !indicator.configuration.shapesAtForeground;
+                indicator.configuration.drawShapesBorder = !indicator.configuration.drawShapesBorder;
             }
         }
 
@@ -181,6 +181,17 @@ ColumnLayout {
 
             onClicked: {
                 indicator.configuration.glowReversed = !indicator.configuration.glowReversed;
+            }
+        }
+
+        LatteComponents.CheckBox {
+            id: shapesPlacement
+            Layout.maximumWidth: dialog.optionsWidth
+            text: i18n("Place Shapes at foreground above item icon")
+            checked: indicator.configuration.shapesAtForeground
+
+            onClicked: {
+                indicator.configuration.shapesAtForeground = !indicator.configuration.shapesAtForeground;
             }
         }
     }
