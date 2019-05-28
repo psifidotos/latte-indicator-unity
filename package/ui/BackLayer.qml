@@ -24,80 +24,51 @@ import org.kde.plasma.plasmoid 2.0
 import org.kde.plasma.core 2.0 as PlasmaCore
 
 Item{
-    Item{
-        id: rectangleItem
-        width: indicator.isTask || indicator.isSquare ? Math.min(parent.width, parent.height) : parent.width
-        height: indicator.isTask || indicator.isSquare ? width : parent.height
-        anchors.centerIn: parent
+    Loader {
+        anchors.fill: parent
+        active: indicator.isTask || indicator.isSquare
 
-        property bool isActive: indicator.isActive || (indicator.isWindow && indicator.hasActive)
-        readonly property int size: Math.min(parent.width, parent.height)
+        sourceComponent:  Item{
+            id: rectangleItem
+            width: indicator.isTask || indicator.isSquare ? Math.min(parent.width, parent.height) : parent.width
+            height: indicator.isTask || indicator.isSquare ? width : parent.height
+            anchors.centerIn: parent
 
-        Rectangle {
-            id: unityRect
-            anchors.fill: parent
-            visible: indicator.isActive
-                     || (indicator.isWindow && indicator.hasShown)
-                     || (indicator.isMinimized && indicator.configuration.colorsForMinimized)
-
-            radius: indicator.currentIconSize / 12
-            color: indicator.iconBackgroundColor
-            clip: true
-        }
-
-        RadialGradient{
-            id: glowGradient
-            anchors.verticalCenter: parent.top
-            anchors.horizontalCenter: parent.horizontalCenter
-            width: parent.width - unityRect.anchors.margins * 2 - 1
-            height: (width * 0.85) - unityRect.anchors.margins * 2 - 1
-            visible: false
-
-            gradient: Gradient {
-                GradientStop { position: 0.0;
-                    color: {
-                        if (indicator.isMinimized && !indicator.configuration.colorsForMinimized) {
-                            return "#aafcfcfc";
-                        }
-
-                        return indicator.iconGlowColor;
-                    }
-                }
-                GradientStop { position: 0.6; color: "transparent" }
-            }
-            //! States
-            states: [
-                State {
-                    name: "top"
-                    when: !indicator.configuration.glowReversed
-
-                    AnchorChanges {
-                        target: glowGradient
-                        anchors{horizontalCenter:parent.horizontalCenter; verticalCenter:parent.top}
-                    }
-                },
-                State {
-                    name: "bottom"
-                    when: indicator.configuration.glowReversed
-
-                    AnchorChanges {
-                        target: glowGradient
-                        anchors{horizontalCenter:parent.horizontalCenter; verticalCenter:parent.bottom}
-                    }
-                }
-            ]
-        }
-
-        Item {
-            id: gradientMask
-            anchors.fill: glowGradient
+            property bool isActive: indicator.isActive || (indicator.isWindow && indicator.hasActive)
+            readonly property int size: Math.min(parent.width, parent.height)
 
             Rectangle {
-                id: glowMaskRect
-                width: glowGradient.width
-                height: glowGradient.height / 2
-                radius: unityRect.radius
+                id: unityRect
+                anchors.fill: parent
+                visible: indicator.isActive
+                         || (indicator.isWindow && indicator.hasShown)
+                         || (indicator.isMinimized && indicator.configuration.colorsForMinimized)
 
+                radius: indicator.currentIconSize / 12
+                color: indicator.iconBackgroundColor
+                clip: true
+            }
+
+            RadialGradient{
+                id: glowGradient
+                anchors.verticalCenter: parent.top
+                anchors.horizontalCenter: parent.horizontalCenter
+                width: parent.width - unityRect.anchors.margins * 2 - 1
+                height: (width * 0.85) - unityRect.anchors.margins * 2 - 1
+                visible: false
+
+                gradient: Gradient {
+                    GradientStop { position: 0.0;
+                        color: {
+                            if (indicator.isMinimized && !indicator.configuration.colorsForMinimized) {
+                                return "#aafcfcfc";
+                            }
+
+                            return indicator.iconGlowColor;
+                        }
+                    }
+                    GradientStop { position: 0.6; color: "transparent" }
+                }
                 //! States
                 states: [
                     State {
@@ -105,12 +76,8 @@ Item{
                         when: !indicator.configuration.glowReversed
 
                         AnchorChanges {
-                            target: glowMaskRect
-                            anchors{bottom: undefined; top: parent.verticalCenter;}
-                        }
-                        PropertyChanges{
-                            target: gradientMask
-                            anchors{bottomMargin: undefined; topMargin: unityRect.anchors.margins}
+                            target: glowGradient
+                            anchors{horizontalCenter:parent.horizontalCenter; verticalCenter:parent.top}
                         }
                     },
                     State {
@@ -118,45 +85,145 @@ Item{
                         when: indicator.configuration.glowReversed
 
                         AnchorChanges {
-                            target: glowMaskRect
-                            anchors{bottom: parent.verticalCenter; top: undefined;}
-                        }
-                        PropertyChanges{
-                            target: gradientMask
-                            anchors{bottomMargin: unityRect.anchors.margins; topMargin: undefined}
+                            target: glowGradient
+                            anchors{horizontalCenter:parent.horizontalCenter; verticalCenter:parent.bottom}
                         }
                     }
                 ]
             }
 
-            visible: false
-        }
+            Item {
+                id: gradientMask
+                anchors.fill: glowGradient
 
-        OpacityMask {
-            anchors.fill: glowGradient
-            source: glowGradient
-            maskSource: gradientMask
-            visible: unityRect.visible || borderRectangle.visible
-            opacity: indicator.configuration.glowOpacity
-        }
+                Rectangle {
+                    id: glowMaskRect
+                    width: glowGradient.width
+                    height: glowGradient.height / 2
+                    radius: unityRect.radius
 
-        Rectangle {
-            id: borderRectangle
-            anchors.fill: parent
-            visible: (indicator.isTask && indicator.isWindow) || (indicator.isApplet && indicator.isActive)
-            color: "transparent"
-            border.width: 1
-            border.color: "#25303030"
-            radius: unityRect.radius
-            clip: true
+                    //! States
+                    states: [
+                        State {
+                            name: "top"
+                            when: !indicator.configuration.glowReversed
+
+                            AnchorChanges {
+                                target: glowMaskRect
+                                anchors{bottom: undefined; top: parent.verticalCenter;}
+                            }
+                            PropertyChanges{
+                                target: gradientMask
+                                anchors{bottomMargin: undefined; topMargin: unityRect.anchors.margins}
+                            }
+                        },
+                        State {
+                            name: "bottom"
+                            when: indicator.configuration.glowReversed
+
+                            AnchorChanges {
+                                target: glowMaskRect
+                                anchors{bottom: parent.verticalCenter; top: undefined;}
+                            }
+                            PropertyChanges{
+                                target: gradientMask
+                                anchors{bottomMargin: unityRect.anchors.margins; topMargin: undefined}
+                            }
+                        }
+                    ]
+                }
+
+                visible: false
+            }
+
+            OpacityMask {
+                anchors.fill: glowGradient
+                source: glowGradient
+                maskSource: gradientMask
+                visible: unityRect.visible || borderRectangle.visible
+                opacity: indicator.configuration.glowOpacity
+            }
 
             Rectangle {
+                id: borderRectangle
                 anchors.fill: parent
-                anchors.margins: parent.border.width
-                radius: unityRect.radius
+                visible: (indicator.isTask && indicator.isWindow) || (indicator.isApplet && indicator.isActive)
                 color: "transparent"
                 border.width: 1
-                border.color: "#25dedede"
+                border.color: "#25303030"
+                radius: unityRect.radius
+                clip: true
+
+                Rectangle {
+                    anchors.fill: parent
+                    anchors.margins: parent.border.width
+                    radius: unityRect.radius
+                    color: "transparent"
+                    border.width: 1
+                    border.color: "#25dedede"
+                }
+            }
+        }
+    }
+
+    Loader {
+        anchors.fill: parent
+        active: !indicator.isSquare && indicator.isActive
+        sourceComponent: Item{
+            anchors.fill: parent
+
+            Rectangle {
+                id: lineRectangle
+                color: theme.buttonFocusColor
+
+                width: plasmoid.formFactor === PlasmaCore.Types.Horizontal ? length : thickness
+                height: plasmoid.formFactor === PlasmaCore.Types.Horizontal ? thickness : length
+
+                readonly property int length: plasmoid.formFactor === PlasmaCore.Types.Horizontal ? parent.width : parent.height
+                readonly property int thickness: Math.max(2, indicator.currentIconSize * 0.06)
+
+                states: [
+                    State {
+                        name: "left"
+                        when: (plasmoid.location === PlasmaCore.Types.LeftEdge)
+
+                        AnchorChanges {
+                            target: lineRectangle
+                            anchors{ top:undefined; bottom:undefined; left:undefined; right:parent.right;
+                                horizontalCenter: undefined; verticalCenter: parent.verticalCenter}
+                        }
+                    },
+                    State {
+                        name: "right"
+                        when: (plasmoid.location === PlasmaCore.Types.RightEdge)
+
+                        AnchorChanges {
+                            target: lineRectangle
+                            anchors{ top:undefined; bottom:undefined; left:parent.left; right:undefined;
+                                horizontalCenter: undefined; verticalCenter: parent.verticalCenter}
+                        }
+                    },
+                    State {
+                        name: "bottom"
+                        when: (plasmoid.location === PlasmaCore.Types.BottomEdge)
+
+                        AnchorChanges {
+                            target: lineRectangle
+                            anchors{ top:parent.top; bottom:undefined; left:undefined; right:undefined;
+                                horizontalCenter: parent.horizontalCenter; verticalCenter: undefined}
+                        }
+                    },
+                    State {
+                        name: "top"
+                        when: (plasmoid.location === PlasmaCore.Types.TopEdge)
+
+                        AnchorChanges {
+                            target: lineRectangle
+                            anchors{ top:undefined; bottom:parent.bottom; left:undefined; right:undefined;
+                                horizontalCenter: parent.horizontalCenter; verticalCenter: undefined}
+                        }
+                    }
+                ]
             }
         }
     }
