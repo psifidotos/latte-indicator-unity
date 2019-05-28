@@ -34,7 +34,8 @@ Item {
         readonly property bool reversed: true
 
         Repeater {
-            model: indicator.isTask && (indicator.isActive || indicator.hasActive) ? 1 : 0
+            model: (indicator.isTask && (indicator.isActive || indicator.hasActive))
+                   || (indicator.isApplet && indicator.isActive && !indicator.isSquare) ? 1 : 0
             delegate: indicator.configuration.style === 0 /*Triangles*/ ? triangleComponent : circleComponent
         }
     }
