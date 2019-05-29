@@ -28,12 +28,10 @@ import org.kde.latte.components 1.0 as LatteComponents
 LatteComponents.IndicatorItem {
     id: root
 
-    //! BEGIN: PUBLISHED OPTIONS TO LATTE
-    readonly property bool needsIconColors: true
-    readonly property bool providesFrontLayer: indicator.configuration.shapesAtForeground
-    readonly property real minThicknessPadding: 0.10
-    readonly property real minLengthPadding: 0.05
-    //! END: PUBLISHED OPTIONS TO LATTE
+    needsIconColors: true
+    providesFrontLayer: indicator.configuration.shapesAtForeground
+    minThicknessPadding: 0.10
+    minLengthPadding: 0.05
 
     readonly property int thickness: plasmoid.formFactor === PlasmaCore.Types.Vertical ? width : height
 
