@@ -22,13 +22,13 @@ This is a Unity style indicator for [Latte Dock](https://phabricator.kde.org/sou
 </p>
 
 <p align="center">
-<img src="https://i.imgur.com/gOhXIpj.png" width="480" ><br/>
+<img src="https://i.imgur.com/RjezAJX.png" width="480" ><br/>
 <i>indicator options</i>
 </p>
 
 # Requires
 
-- Latte Git Version
+- Latte v0.9.x
 
 # Install
 
