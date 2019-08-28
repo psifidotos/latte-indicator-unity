@@ -1,5 +1,10 @@
 ### CHANGELOG
 
+#### Version 0.3.1
+
+* improve appearance for squared applets and no-squared applets
+* update implementation to Latte api
+
 #### Version 0.3
 
 * provide a glow opacity option
