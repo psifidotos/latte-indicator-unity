@@ -40,6 +40,9 @@ Item{
                 property bool isActive: indicator.isActive || (indicator.isWindow && indicator.hasActive)
                 readonly property int size: Math.min(parent.width, parent.height)
 
+                readonly property bool inGlassyLook: (indicator.isTask && indicator.isMinimized && !indicator.configuration.colorsForMinimized)
+                                                     || (indicator.isApplet && indicator.isSquare && !indicator.isActive && indicator.configuration.glassySquareApplets)
+
                 Rectangle {
                     id: unityRect
                     anchors.fill: parent
@@ -64,7 +67,7 @@ Item{
                     gradient: Gradient {
                         GradientStop { position: 0.0;
                             color: {
-                                if (indicator.isMinimized && !indicator.configuration.colorsForMinimized) {
+                                if (rectangleItem.inGlassyLook) {
                                     return "#aafcfcfc";
                                 }
 
@@ -151,7 +154,9 @@ Item{
                 Rectangle {
                     id: borderRectangle
                     anchors.fill: parent
-                    visible: (indicator.isTask && indicator.isWindow) || (indicator.isApplet && indicator.isActive)
+                    visible: (indicator.isTask && indicator.isWindow)
+                             || (indicator.isApplet && indicator.isActive)
+                             || rectangleItem.inGlassyLook
                     color: "transparent"
                     border.width: 1
                     border.color: "#25303030"

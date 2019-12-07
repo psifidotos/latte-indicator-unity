@@ -88,6 +88,55 @@ ColumnLayout {
                 Layout.maximumWidth: theme.mSize(theme.defaultFont).width * 4
             }
         }
+
+        LatteComponents.CheckBoxesColumn {
+            Layout.topMargin: 7
+            Layout.fillWidth: true
+
+            LatteComponents.CheckBox {
+                Layout.maximumWidth: dialog.optionsWidth
+                text: i18n("Reverse glow position")
+                checked: indicator.configuration.glowReversed
+
+                onClicked: {
+                    indicator.configuration.glowReversed = !indicator.configuration.glowReversed;
+                }
+            }
+
+            LatteComponents.CheckBoxesColumn {
+                LatteComponents.CheckBox {
+                    Layout.maximumWidth: dialog.optionsWidth
+                    text: i18n("Glassy look for square applets")
+                    checked: indicator.configuration.glassySquareApplets
+
+                    onClicked: {
+                        indicator.configuration.glassySquareApplets = !indicator.configuration.glassySquareApplets;
+                    }
+                }
+            }
+
+            LatteComponents.CheckBox {
+                Layout.maximumWidth: dialog.optionsWidth
+                text: i18n("Colored look for launchers")
+                checked: indicator.configuration.colorsForLaunchers
+                visible: indicator.latteTasksArePresent
+
+                onClicked: {
+                    indicator.configuration.colorsForLaunchers = !indicator.configuration.colorsForLaunchers;
+                }
+            }
+
+            LatteComponents.CheckBox {
+                Layout.maximumWidth: dialog.optionsWidth
+                text: i18n("Colored look for minimized windows")
+                checked: indicator.configuration.colorsForMinimized
+                visible: indicator.latteTasksArePresent
+
+                onClicked: {
+                    indicator.configuration.colorsForMinimized = !indicator.configuration.colorsForMinimized;
+                }
+            }
+        }
     }
 
     LatteComponents.SubHeader {
@@ -154,85 +203,43 @@ ColumnLayout {
                 readonly property int style: 2 /*Rectangle*/
             }
         }
-    }
-
-    LatteComponents.SubHeader {
-        text: i18n("Options")
-    }
-
-    LatteComponents.CheckBoxesColumn {
-        Layout.fillWidth: true
-
-        LatteComponents.CheckBox {
-            id: shapesBorder
-            Layout.maximumWidth: dialog.optionsWidth
-            text: i18n("Draw Shapes border")
-            checked: indicator.configuration.drawShapesBorder
-
-            onClicked: {
-                indicator.configuration.drawShapesBorder = !indicator.configuration.drawShapesBorder;
-            }
-        }
-
-        LatteComponents.CheckBox {
-            Layout.maximumWidth: dialog.optionsWidth
-            text: i18n("Reverse glow position")
-            checked: indicator.configuration.glowReversed
-
-            onClicked: {
-                indicator.configuration.glowReversed = !indicator.configuration.glowReversed;
-            }
-        }
-
-        LatteComponents.CheckBox {
-            id: shapesPlacement
-            Layout.maximumWidth: dialog.optionsWidth
-            text: i18n("Place Shapes at foreground above item icon")
-            checked: indicator.configuration.shapesAtForeground
-
-            onClicked: {
-                indicator.configuration.shapesAtForeground = !indicator.configuration.shapesAtForeground;
-            }
-        }
-    }
-
-    LatteComponents.SubHeader {
-        text: i18nc("indicator tasks options","Tasks")
-        visible: indicator.latteTasksArePresent
-    }
-
-    LatteComponents.CheckBoxesColumn {
-        Layout.fillWidth: true
-        visible: indicator.latteTasksArePresent
 
         LatteComponents.CheckBoxesColumn {
-            LatteComponents.CheckBox {
-                Layout.maximumWidth: dialog.optionsWidth
-                text: i18n("Draw colored background for launchers")
-                checked: indicator.configuration.colorsForLaunchers
+            Layout.topMargin: 7
+            Layout.fillWidth: true
+            visible: indicator.latteTasksArePresent
 
-                onClicked: {
-                    indicator.configuration.colorsForLaunchers = !indicator.configuration.colorsForLaunchers;
+            LatteComponents.CheckBoxesColumn {
+                LatteComponents.CheckBox {
+                    Layout.maximumWidth: dialog.optionsWidth
+                    text: i18n("Fill for minimized windows")
+                    checked: indicator.configuration.fillShapesForMinimized
+
+                    onClicked: {
+                        indicator.configuration.fillShapesForMinimized = !indicator.configuration.fillShapesForMinimized;
+                    }
                 }
             }
 
             LatteComponents.CheckBox {
+                id: shapesBorder
                 Layout.maximumWidth: dialog.optionsWidth
-                text: i18n("Draw colored background for minimized windows")
-                checked: indicator.configuration.colorsForMinimized
+                text: i18n("Draw border")
+                checked: indicator.configuration.drawShapesBorder
 
                 onClicked: {
-                    indicator.configuration.colorsForMinimized = !indicator.configuration.colorsForMinimized;
+                    indicator.configuration.drawShapesBorder = !indicator.configuration.drawShapesBorder;
                 }
             }
 
             LatteComponents.CheckBox {
+                id: shapesPlacement
                 Layout.maximumWidth: dialog.optionsWidth
-                text: i18n("Fill Shapes background for minimized windows")
-                checked: indicator.configuration.fillShapesForMinimized
+                text: i18n("Place at foreground above item icon")
+                checked: indicator.configuration.shapesAtForeground
 
                 onClicked: {
-                    indicator.configuration.fillShapesForMinimized = !indicator.configuration.fillShapesForMinimized;
+                    indicator.configuration.shapesAtForeground = !indicator.configuration.shapesAtForeground;
                 }
             }
         }
