@@ -208,6 +208,16 @@ ColumnLayout {
         LatteComponents.CheckBoxesColumn {
             LatteComponents.CheckBox {
                 Layout.maximumWidth: dialog.optionsWidth
+                text: i18n("Draw colored background for launchers")
+                checked: indicator.configuration.colorsForLaunchers
+
+                onClicked: {
+                    indicator.configuration.colorsForLaunchers = !indicator.configuration.colorsForLaunchers;
+                }
+            }
+
+            LatteComponents.CheckBox {
+                Layout.maximumWidth: dialog.optionsWidth
                 text: i18n("Draw colored background for minimized windows")
                 checked: indicator.configuration.colorsForMinimized
 

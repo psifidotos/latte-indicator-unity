@@ -44,6 +44,7 @@ Item{
                     id: unityRect
                     anchors.fill: parent
                     visible: indicator.isActive
+                             || (indicator.isLauncher && indicator.configuration.colorsForLaunchers)
                              || (indicator.isWindow && indicator.hasShown)
                              || (indicator.isMinimized && indicator.configuration.colorsForMinimized)
 
