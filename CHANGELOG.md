@@ -1,5 +1,12 @@
 ### CHANGELOG
 
+#### Version 0.4.0
+
+* options for colors, the user can now choose between Pale/Bright colors
+* option for glassy applets in square form
+* option for launchers to be colored
+* reorganize options placement
+
 #### Version 0.3.1
 
 * improve appearance for squared applets and no-squared applets
