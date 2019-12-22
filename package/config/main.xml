@@ -13,6 +13,13 @@
     </choices>
     <default>0</default>
     </entry>
+    <entry name="colors" type="Enum">
+    <choices>
+         <choice name="Pale"/>
+         <choice name="Bright"/>
+    </choices>
+    <default>0</default>
+    </entry>    
     <entry name="glassySquareApplets" type="Bool">
         <label>draw glassy background for applets that are squared</label>
         <default>false</default>

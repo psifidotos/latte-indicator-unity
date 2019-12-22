@@ -29,7 +29,11 @@ Item{
         active: indicator.isTask || indicator.isSquare
 
         sourceComponent: Item {
+            id: layerItem
             anchors.fill: parent
+
+            readonly property color iconBackgroundColor: root.colors === 0 ? /*Pale*/ indicator.iconBackgroundColor : /*Bright*/ indicator.iconGlowColor
+            readonly property color iconGlowColor: root.colors === 0 ? /*Pale*/ indicator.iconGlowColor : /*Bright*/ indicator.iconBackgroundColor
 
             Item{
                 id: rectangleItem
@@ -52,7 +56,7 @@ Item{
                              || (indicator.isMinimized && indicator.configuration.colorsForMinimized)
 
                     radius: indicator.currentIconSize / 12
-                    color: indicator.iconBackgroundColor
+                    color: layerItem.iconBackgroundColor
                     clip: true
                 }
 
@@ -71,7 +75,7 @@ Item{
                                     return "#aafcfcfc";
                                 }
 
-                                return indicator.iconGlowColor;
+                                return layerItem.iconGlowColor;
                             }
                         }
                         GradientStop { position: 0.6; color: "transparent" }

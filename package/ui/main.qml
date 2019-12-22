@@ -33,6 +33,7 @@ LatteComponents.IndicatorItem {
     minThicknessPadding: 0.10
     minLengthPadding: 0.05
 
+    readonly property int colors: indicator.configuration.colors
     readonly property int thickness: plasmoid.formFactor === PlasmaCore.Types.Vertical ? width : height
 
     readonly property int shownWindows: indicator.windowsCount - indicator.windowsMinimizedCount

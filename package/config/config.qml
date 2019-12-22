@@ -34,6 +34,59 @@ ColumnLayout {
     Layout.fillWidth: true
 
     LatteComponents.SubHeader {
+        text: i18n("Colors")
+    }
+
+    ColumnLayout {
+        spacing: 0
+
+        RowLayout {
+            Layout.fillWidth: true
+            spacing: 2
+
+            readonly property int colors: indicator.configuration.colors
+
+            readonly property int buttonsCount: 2
+            readonly property int buttonSize: (dialog.optionsWidth - (spacing * buttonsCount-1)) / buttonsCount
+
+            ExclusiveGroup {
+                id: colorsGroup
+                onCurrentChanged: {
+                    if (current.checked) {
+                        indicator.configuration.colors = current.colors;
+                    }
+                }
+            }
+
+            PlasmaComponents.Button {
+                Layout.minimumWidth: parent.buttonSize
+                Layout.maximumWidth: Layout.minimumWidth
+
+                text: i18nc("pale colors","Pale")
+                checked: parent.colors === colors
+                checkable: true
+                exclusiveGroup: colorsGroup
+                tooltip: i18n("Use pale colors for glow and background")
+
+                readonly property int colors: 0 /*Pale*/
+            }
+
+            PlasmaComponents.Button {
+                Layout.minimumWidth: parent.buttonSize
+                Layout.maximumWidth: Layout.minimumWidth
+
+                text: i18nc("bright colors","Bright")
+                checked: parent.colors === colors
+                checkable: true
+                exclusiveGroup: colorsGroup
+                tooltip: i18n("Use bright colors for glow and background")
+
+                readonly property int colors: 1 /*Bright*/
+            }
+        }
+    }
+
+    LatteComponents.SubHeader {
         text: i18n("Background")
     }
 
