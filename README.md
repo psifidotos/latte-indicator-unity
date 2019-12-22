@@ -22,7 +22,7 @@ This is a Unity style indicator for [Latte Dock](https://phabricator.kde.org/sou
 </p>
 
 <p align="center">
-<img src="https://i.imgur.com/RjezAJX.png" width="480" ><br/>
+<img src="https://imgur.com/G1YXreA.png" width="480" ><br/>
 <i>indicator options</i>
 </p>
 
@@ -33,6 +33,9 @@ This is a Unity style indicator for [Latte Dock](https://phabricator.kde.org/sou
 # Install
 
 From Latte UI: **Effects -> Indicators -> Style -> Get New Indicators...**
+<br>From command line: ``kpackagetool5 -i . -t Latte/Indicator``
 
-From command line: ``kpackagetool5 -i . -t Latte/Indicator``
+# Update
 
+From Latte UI: **Effects -> Indicators -> Style -> Get New Indicators... -> Installed**
+<br>From command line: ``kpackagetool5 -u . -t Latte/Indicator``
