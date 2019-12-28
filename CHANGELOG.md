@@ -1,5 +1,9 @@
 ### CHANGELOG
 
+#### Version 0.4.1
+
+* support floating docks and panels
+
 #### Version 0.4.0
 
 * options for colors, the user can now choose between Pale/Bright colors
