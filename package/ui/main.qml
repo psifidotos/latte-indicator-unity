@@ -62,6 +62,22 @@ LatteComponents.IndicatorItem {
         return (r * 299 + g * 587 + b * 114) / 1000
     }
 
+    //! Bindings for properties that have introduced
+    //! later on Latte versions > 0.9.2
+    Binding{
+        target: root
+        property: "enabledForApplets"
+        when: root.hasOwnProperty("enabledForApplets")
+        value: indicator.configuration.enabledForApplets
+    }
+
+    Binding{
+        target: root
+        property: "lengthPadding"
+        when: root.hasOwnProperty("lengthPadding")
+        value: indicator.configuration.lengthPadding
+    }
+
     //! Background Layer
     Loader{
         id: backLayer
