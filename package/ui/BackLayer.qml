@@ -44,7 +44,8 @@ Item{
                 property bool isActive: indicator.isActive || (indicator.isWindow && indicator.hasActive)
                 readonly property int size: Math.min(parent.width, parent.height)
 
-                readonly property bool inGlassyLook: (indicator.isTask && indicator.isMinimized && !indicator.configuration.colorsForMinimized)
+                readonly property bool inGlassyLook: (indicator.isTask && indicator.configuration.glassyForAllTasks)
+                                                     || (indicator.isTask && indicator.isMinimized && !indicator.configuration.colorsForMinimized)
                                                      || (indicator.isApplet && indicator.isSquare && !indicator.isActive && indicator.configuration.glassySquareApplets)
 
                 Rectangle {

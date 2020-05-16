@@ -196,15 +196,24 @@ ColumnLayout {
                 }
             }
 
-            LatteComponents.CheckBoxesColumn {
-                LatteComponents.CheckBox {
-                    Layout.maximumWidth: dialog.optionsWidth
-                    text: i18n("Glassy look for square applets")
-                    checked: indicator.configuration.glassySquareApplets
+            LatteComponents.CheckBox {
+                Layout.maximumWidth: dialog.optionsWidth
+                text: i18n("Glassy look for all tasks")
+                checked: indicator.configuration.glassyForAllTasks
+                visible: indicator.latteTasksArePresent
 
-                    onClicked: {
-                        indicator.configuration.glassySquareApplets = !indicator.configuration.glassySquareApplets;
-                    }
+                onClicked: {
+                    indicator.configuration.glassyForAllTasks = !indicator.configuration.glassyForAllTasks;
+                }
+            }
+
+            LatteComponents.CheckBox {
+                Layout.maximumWidth: dialog.optionsWidth
+                text: i18n("Glassy look for square applets")
+                checked: indicator.configuration.glassySquareApplets
+
+                onClicked: {
+                    indicator.configuration.glassySquareApplets = !indicator.configuration.glassySquareApplets;
                 }
             }
 

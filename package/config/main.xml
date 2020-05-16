@@ -23,7 +23,11 @@
     <entry name="glassySquareApplets" type="Bool">
         <label>draw glassy background for applets that are squared</label>
         <default>false</default>
-    </entry>       
+    </entry>
+    <entry name="glassyForAllTasks" type="Bool">
+        <label>draw glassy background for all tasks</label>
+        <default>false</default>
+    </entry>
     <entry name="colorsForLaunchers" type="Bool">
         <label>use icons colors to draw the background for launchers also</label>
         <default>false</default>
