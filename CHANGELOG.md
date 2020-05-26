@@ -1,5 +1,9 @@
 ### CHANGELOG
 
+#### Version 0.5.2
+
+* add option for tasks glassy look
+
 #### Version 0.5.1
 
 * fix compatibility with Latte 0.10
