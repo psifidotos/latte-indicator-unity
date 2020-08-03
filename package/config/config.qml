@@ -52,11 +52,6 @@ ColumnLayout {
 
             ExclusiveGroup {
                 id: colorsGroup
-                onCurrentChanged: {
-                    if (current.checked) {
-                        indicator.configuration.colors = current.colors;
-                    }
-                }
             }
 
             PlasmaComponents.Button {
@@ -65,11 +60,17 @@ ColumnLayout {
 
                 text: i18nc("pale colors","Pale")
                 checked: parent.colors === colors
-                checkable: true
+                checkable: false
                 exclusiveGroup: colorsGroup
                 tooltip: i18n("Use pale colors for glow and background")
 
                 readonly property int colors: 0 /*Pale*/
+
+                onPressedChanged: {
+                    if (pressed) {
+                        indicator.configuration.colors = colors;
+                    }
+                }
             }
 
             PlasmaComponents.Button {
@@ -78,11 +79,17 @@ ColumnLayout {
 
                 text: i18nc("bright colors","Bright")
                 checked: parent.colors === colors
-                checkable: true
+                checkable: false
                 exclusiveGroup: colorsGroup
                 tooltip: i18n("Use bright colors for glow and background")
 
                 readonly property int colors: 1 /*Bright*/
+
+                onPressedChanged: {
+                    if (pressed) {
+                        indicator.configuration.colors = colors;
+                    }
+                }
             }
         }
     }
@@ -259,11 +266,6 @@ ColumnLayout {
 
             ExclusiveGroup {
                 id: styleGroup
-                onCurrentChanged: {
-                    if (current.checked) {
-                        indicator.configuration.style = current.style;
-                    }
-                }
             }
 
             PlasmaComponents.Button {
@@ -272,11 +274,17 @@ ColumnLayout {
 
                 text: i18nc("triangle indicators","Triangle")
                 checked: parent.style === style
-                checkable: true
+                checkable: false
                 exclusiveGroup: styleGroup
                 tooltip: i18n("Show triangles for item states")
 
                 readonly property int style: 0 /*Triangle*/
+
+                onPressedChanged: {
+                    if (pressed) {
+                        indicator.configuration.style = style;
+                    }
+                }
             }
 
             PlasmaComponents.Button {
@@ -285,11 +293,17 @@ ColumnLayout {
 
                 text: i18nc("dot indicators", "Dot")
                 checked: parent.style === style
-                checkable: true
+                checkable: false
                 exclusiveGroup: styleGroup
                 tooltip: i18n("Show dots for item states")
 
                 readonly property int style: 1 /*Dot*/
+
+                onPressedChanged: {
+                    if (pressed) {
+                        indicator.configuration.style = style;
+                    }
+                }
             }
 
             PlasmaComponents.Button {
@@ -298,11 +312,17 @@ ColumnLayout {
 
                 text: i18nc("rectangle indicators", "Rectangle")
                 checked: parent.style === style
-                checkable: true
+                checkable: false
                 exclusiveGroup: styleGroup
                 tooltip: i18n("Show rectangles for item states")
 
                 readonly property int style: 2 /*Rectangle*/
+
+                onPressedChanged: {
+                    if (pressed) {
+                        indicator.configuration.style = style;
+                    }
+                }
             }
         }
 
