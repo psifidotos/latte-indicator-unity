@@ -266,7 +266,7 @@ ColumnLayout {
     }
 
     LatteComponents.SubHeader {
-        text: i18n("Background Options")
+        text: i18nc("indicator background options","Background Options")
     }
 
     LatteComponents.CheckBoxesColumn {
@@ -328,7 +328,7 @@ ColumnLayout {
     }
 
     LatteComponents.SubHeader {
-        text: i18nc("indicators shapes options","Shapes Options")
+        text: i18nc("indicators shape options","Shape Options")
     }
 
     LatteComponents.CheckBoxesColumn {
@@ -372,7 +372,7 @@ ColumnLayout {
     }
 
     LatteComponents.SubHeader {
-        text: i18n("Options")
+        text: i18nc("indicator applet options","Applet Options")
         visible: deprecatedPropertiesAreHidden
     }
 
