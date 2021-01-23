@@ -35,7 +35,7 @@ ColumnLayout {
     readonly property bool deprecatedPropertiesAreHidden: dialog && dialog.hasOwnProperty("deprecatedOptionsAreHidden") && dialog.deprecatedOptionsAreHidden
 
     LatteComponents.SubHeader {
-        text: i18n("Colors")
+        text: i18n("Style")
     }
 
     ColumnLayout {
@@ -58,7 +58,7 @@ ColumnLayout {
                 Layout.minimumWidth: parent.buttonSize
                 Layout.maximumWidth: Layout.minimumWidth
 
-                text: i18nc("pale colors","Pale")
+                text: i18nc("pale colors","Pale Colors")
                 checked: parent.colors === colors
                 checkable: false
                 exclusiveGroup: colorsGroup
@@ -77,7 +77,7 @@ ColumnLayout {
                 Layout.minimumWidth: parent.buttonSize
                 Layout.maximumWidth: Layout.minimumWidth
 
-                text: i18nc("bright colors","Bright")
+                text: i18nc("bright colors","Bright Colors")
                 checked: parent.colors === colors
                 checkable: false
                 exclusiveGroup: colorsGroup
@@ -88,6 +88,81 @@ ColumnLayout {
                 onPressedChanged: {
                     if (pressed) {
                         indicator.configuration.colors = colors;
+                    }
+                }
+            }
+        }
+    }
+
+    ColumnLayout {
+        spacing: 0
+
+        RowLayout {
+            Layout.fillWidth: true
+            spacing: 2
+
+            readonly property int style: indicator.configuration.style
+
+            readonly property int buttonsCount: 3
+            readonly property int buttonSize: (dialog.optionsWidth - (spacing * buttonsCount-1)) / buttonsCount
+
+            ExclusiveGroup {
+                id: styleGroup
+            }
+
+            PlasmaComponents.Button {
+                Layout.minimumWidth: parent.buttonSize
+                Layout.maximumWidth: Layout.minimumWidth
+
+                text: i18nc("triangle indicators","Triangles")
+                checked: parent.style === style
+                checkable: false
+                exclusiveGroup: styleGroup
+                tooltip: i18n("Show triangles for item states")
+
+                readonly property int style: 0 /*Triangle*/
+
+                onPressedChanged: {
+                    if (pressed) {
+                        indicator.configuration.style = style;
+                    }
+                }
+            }
+
+            PlasmaComponents.Button {
+                Layout.minimumWidth: parent.buttonSize
+                Layout.maximumWidth: Layout.minimumWidth
+
+                text: i18nc("dot indicators", "Dots")
+                checked: parent.style === style
+                checkable: false
+                exclusiveGroup: styleGroup
+                tooltip: i18n("Show dots for item states")
+
+                readonly property int style: 1 /*Dot*/
+
+                onPressedChanged: {
+                    if (pressed) {
+                        indicator.configuration.style = style;
+                    }
+                }
+            }
+
+            PlasmaComponents.Button {
+                Layout.minimumWidth: parent.buttonSize
+                Layout.maximumWidth: Layout.minimumWidth
+
+                text: i18nc("rectangle indicators", "Rectangles")
+                checked: parent.style === style
+                checkable: false
+                exclusiveGroup: styleGroup
+                tooltip: i18n("Show rectangles for item states")
+
+                readonly property int style: 2 /*Rectangle*/
+
+                onPressedChanged: {
+                    if (pressed) {
+                        indicator.configuration.style = style;
                     }
                 }
             }
@@ -188,181 +263,110 @@ ColumnLayout {
                 Layout.maximumWidth: theme.mSize(theme.defaultFont).width * 4
             }
         }
+    }
 
-        LatteComponents.CheckBoxesColumn {
-            Layout.topMargin: 7
-            Layout.fillWidth: true
+    LatteComponents.SubHeader {
+        text: i18n("Background Options")
+    }
 
-            LatteComponents.CheckBox {
-                Layout.maximumWidth: dialog.optionsWidth
-                text: i18n("Reverse glow position")
-                checked: indicator.configuration.glowReversed
+    LatteComponents.CheckBoxesColumn {
+        Layout.topMargin: 7
+        Layout.fillWidth: true
 
-                onClicked: {
-                    indicator.configuration.glowReversed = !indicator.configuration.glowReversed;
-                }
+        LatteComponents.CheckBox {
+            Layout.maximumWidth: dialog.optionsWidth
+            text: i18n("Reverse glow position")
+            checked: indicator.configuration.glowReversed
+
+            onClicked: {
+                indicator.configuration.glowReversed = !indicator.configuration.glowReversed;
             }
+        }
 
-            LatteComponents.CheckBox {
-                Layout.maximumWidth: dialog.optionsWidth
-                text: i18n("Glassy look for all tasks")
-                checked: indicator.configuration.glassyForAllTasks
-                visible: indicator.latteTasksArePresent
+        LatteComponents.CheckBox {
+            Layout.maximumWidth: dialog.optionsWidth
+            text: i18n("Glassy look for all tasks")
+            checked: indicator.configuration.glassyForAllTasks
+            visible: indicator.latteTasksArePresent
 
-                onClicked: {
-                    indicator.configuration.glassyForAllTasks = !indicator.configuration.glassyForAllTasks;
-                }
+            onClicked: {
+                indicator.configuration.glassyForAllTasks = !indicator.configuration.glassyForAllTasks;
             }
+        }
 
-            LatteComponents.CheckBox {
-                Layout.maximumWidth: dialog.optionsWidth
-                text: i18n("Glassy look for square applets")
-                checked: indicator.configuration.glassySquareApplets
+        LatteComponents.CheckBox {
+            Layout.maximumWidth: dialog.optionsWidth
+            text: i18n("Glassy look for square applets")
+            checked: indicator.configuration.glassySquareApplets
 
-                onClicked: {
-                    indicator.configuration.glassySquareApplets = !indicator.configuration.glassySquareApplets;
-                }
+            onClicked: {
+                indicator.configuration.glassySquareApplets = !indicator.configuration.glassySquareApplets;
             }
+        }
 
-            LatteComponents.CheckBox {
-                Layout.maximumWidth: dialog.optionsWidth
-                text: i18n("Colored look for launchers")
-                checked: indicator.configuration.colorsForLaunchers
-                visible: indicator.latteTasksArePresent
+        LatteComponents.CheckBox {
+            Layout.maximumWidth: dialog.optionsWidth
+            text: i18n("Colored look for launchers")
+            checked: indicator.configuration.colorsForLaunchers
+            visible: indicator.latteTasksArePresent
 
-                onClicked: {
-                    indicator.configuration.colorsForLaunchers = !indicator.configuration.colorsForLaunchers;
-                }
+            onClicked: {
+                indicator.configuration.colorsForLaunchers = !indicator.configuration.colorsForLaunchers;
             }
+        }
 
-            LatteComponents.CheckBox {
-                Layout.maximumWidth: dialog.optionsWidth
-                text: i18n("Colored look for minimized windows")
-                checked: indicator.configuration.colorsForMinimized
-                visible: indicator.latteTasksArePresent
+        LatteComponents.CheckBox {
+            Layout.maximumWidth: dialog.optionsWidth
+            text: i18n("Colored look for minimized windows")
+            checked: indicator.configuration.colorsForMinimized
+            visible: indicator.latteTasksArePresent
 
-                onClicked: {
-                    indicator.configuration.colorsForMinimized = !indicator.configuration.colorsForMinimized;
-                }
+            onClicked: {
+                indicator.configuration.colorsForMinimized = !indicator.configuration.colorsForMinimized;
             }
         }
     }
 
     LatteComponents.SubHeader {
-        text: i18nc("indicators shapes style","Shapes Style")
+        text: i18nc("indicators shapes options","Shapes Options")
     }
 
-    ColumnLayout {
-        spacing: 0
+    LatteComponents.CheckBoxesColumn {
+        Layout.topMargin: 7
+        Layout.fillWidth: true
+        visible: indicator.latteTasksArePresent
 
-        RowLayout {
-            Layout.fillWidth: true
-            spacing: 2
+        LatteComponents.CheckBoxesColumn {
+            LatteComponents.CheckBox {
+                Layout.maximumWidth: dialog.optionsWidth
+                text: i18n("Fill for minimized windows")
+                checked: indicator.configuration.fillShapesForMinimized
 
-            readonly property int style: indicator.configuration.style
-
-            readonly property int buttonsCount: 3
-            readonly property int buttonSize: (dialog.optionsWidth - (spacing * buttonsCount-1)) / buttonsCount
-
-            ExclusiveGroup {
-                id: styleGroup
-            }
-
-            PlasmaComponents.Button {
-                Layout.minimumWidth: parent.buttonSize
-                Layout.maximumWidth: Layout.minimumWidth
-
-                text: i18nc("triangle indicators","Triangle")
-                checked: parent.style === style
-                checkable: false
-                exclusiveGroup: styleGroup
-                tooltip: i18n("Show triangles for item states")
-
-                readonly property int style: 0 /*Triangle*/
-
-                onPressedChanged: {
-                    if (pressed) {
-                        indicator.configuration.style = style;
-                    }
-                }
-            }
-
-            PlasmaComponents.Button {
-                Layout.minimumWidth: parent.buttonSize
-                Layout.maximumWidth: Layout.minimumWidth
-
-                text: i18nc("dot indicators", "Dot")
-                checked: parent.style === style
-                checkable: false
-                exclusiveGroup: styleGroup
-                tooltip: i18n("Show dots for item states")
-
-                readonly property int style: 1 /*Dot*/
-
-                onPressedChanged: {
-                    if (pressed) {
-                        indicator.configuration.style = style;
-                    }
-                }
-            }
-
-            PlasmaComponents.Button {
-                Layout.minimumWidth: parent.buttonSize
-                Layout.maximumWidth: Layout.minimumWidth
-
-                text: i18nc("rectangle indicators", "Rectangle")
-                checked: parent.style === style
-                checkable: false
-                exclusiveGroup: styleGroup
-                tooltip: i18n("Show rectangles for item states")
-
-                readonly property int style: 2 /*Rectangle*/
-
-                onPressedChanged: {
-                    if (pressed) {
-                        indicator.configuration.style = style;
-                    }
+                onClicked: {
+                    indicator.configuration.fillShapesForMinimized = !indicator.configuration.fillShapesForMinimized;
                 }
             }
         }
 
-        LatteComponents.CheckBoxesColumn {
-            Layout.topMargin: 7
-            Layout.fillWidth: true
-            visible: indicator.latteTasksArePresent
+        LatteComponents.CheckBox {
+            id: shapesBorder
+            Layout.maximumWidth: dialog.optionsWidth
+            text: i18n("Draw border")
+            checked: indicator.configuration.drawShapesBorder
 
-            LatteComponents.CheckBoxesColumn {
-                LatteComponents.CheckBox {
-                    Layout.maximumWidth: dialog.optionsWidth
-                    text: i18n("Fill for minimized windows")
-                    checked: indicator.configuration.fillShapesForMinimized
-
-                    onClicked: {
-                        indicator.configuration.fillShapesForMinimized = !indicator.configuration.fillShapesForMinimized;
-                    }
-                }
+            onClicked: {
+                indicator.configuration.drawShapesBorder = !indicator.configuration.drawShapesBorder;
             }
+        }
 
-            LatteComponents.CheckBox {
-                id: shapesBorder
-                Layout.maximumWidth: dialog.optionsWidth
-                text: i18n("Draw border")
-                checked: indicator.configuration.drawShapesBorder
+        LatteComponents.CheckBox {
+            id: shapesPlacement
+            Layout.maximumWidth: dialog.optionsWidth
+            text: i18n("Place at foreground above item icon")
+            checked: indicator.configuration.shapesAtForeground
 
-                onClicked: {
-                    indicator.configuration.drawShapesBorder = !indicator.configuration.drawShapesBorder;
-                }
-            }
-
-            LatteComponents.CheckBox {
-                id: shapesPlacement
-                Layout.maximumWidth: dialog.optionsWidth
-                text: i18n("Place at foreground above item icon")
-                checked: indicator.configuration.shapesAtForeground
-
-                onClicked: {
-                    indicator.configuration.shapesAtForeground = !indicator.configuration.shapesAtForeground;
-                }
+            onClicked: {
+                indicator.configuration.shapesAtForeground = !indicator.configuration.shapesAtForeground;
             }
         }
     }
