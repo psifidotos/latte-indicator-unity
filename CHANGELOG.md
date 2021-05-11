@@ -1,5 +1,9 @@
 ### CHANGELOG
 
+#### Version 0.6.0
+
+* update configuration settings ui
+
 #### Version 0.5.2
 
 * add option for tasks glassy look
