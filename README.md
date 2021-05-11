@@ -22,7 +22,7 @@ This is a Unity style indicator for [Latte Dock](https://phabricator.kde.org/sou
 </p>
 
 <p align="center">
-<img src="https://imgur.com/G1YXreA.png" width="480" ><br/>
+<img src="https://i.imgur.com/ZKGyOWJ.png" width="480" ><br/>
 <i>indicator options</i>
 </p>
 
